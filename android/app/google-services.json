@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1067580436795",
+    "project_id": "peluqueriaknina-b39a9",
+    "storage_bucket": "peluqueriaknina-b39a9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067580436795:android:dac082107502654847871e",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5rg6AzrLg3xpvmUJz1aNHUv9FvY_haI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
