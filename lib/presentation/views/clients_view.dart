@@ -58,36 +58,52 @@ class ClientsView extends StatelessWidget {
                           child: Container(
                             margin: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 16.0),
-                            padding: const EdgeInsets.all(16.0),
                             decoration: BoxDecoration(
                               color: CupertinoColors.white,
-                              borderRadius: BorderRadius.circular(16.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: CupertinoColors.inactiveGray
-                                      .withOpacity(0.2),
-                                  spreadRadius: 1,
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(
+                                color: CupertinoColors
+                                    .systemGrey4, // Color del borde
+                                width: 1.0,
+                              ),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  clientName,
-                                  style: CupertinoTheme.of(context)
-                                      .textTheme
-                                      .navLargeTitleTextStyle
-                                      .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                            child: CupertinoFormRow(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 16.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        CupertinoIcons
+                                            .person, // Icono del cliente
                                         color: CupertinoColors.activeBlue,
                                       ),
-                                ),
-                                const SizedBox(height: 8.0),
-                              ],
+                                      const SizedBox(
+                                          width:
+                                              10), // Espacio entre el icono y el texto
+                                      Text(
+                                        clientName,
+                                        style: CupertinoTheme.of(context)
+                                            .textTheme
+                                            .navLargeTitleTextStyle
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                              color: CupertinoColors.activeBlue,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Icon(
+                                    CupertinoIcons
+                                        .right_chevron, // Flecha de navegación
+                                    color: CupertinoColors.systemGrey,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -97,24 +113,66 @@ class ClientsView extends StatelessWidget {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: CupertinoButton.filled(
-                onPressed: () {
-                  // Navegar a la vista de creación de cliente
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => const AddClientView(),
+            Center(
+              child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // Centra verticalmente
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                        bottom: 16), // Agrega el margen inferior
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment
+                          .center, // Centra horizontalmente el Row
+                      children: [
+                        CupertinoButton(
+                          padding: EdgeInsets
+                              .zero, // Elimina el padding predeterminado de CupertinoButton
+                          onPressed: () {
+                            // Navegar a la vista de creación de cliente
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => const AddClientView(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 12),
+                            decoration: BoxDecoration(
+                              color: CupertinoColors.systemGrey5, // Fondo sutil
+                              borderRadius: BorderRadius.circular(
+                                  8), // Bordes redondeados
+                              boxShadow: [
+                                BoxShadow(
+                                  color: CupertinoColors.systemGrey
+                                      .withOpacity(0.3),
+                                  blurRadius: 4,
+                                  spreadRadius: 1,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              'Agregar Cliente',
+                              style: CupertinoTheme.of(context)
+                                  .textTheme
+                                  .textStyle
+                                  .copyWith(
+                                    color: CupertinoColors.activeBlue,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  );
-                },
-                child: const Text(
-                  'Añadir Cliente',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),

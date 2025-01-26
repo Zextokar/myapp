@@ -109,6 +109,8 @@ void showEditPetDialog(BuildContext context, String petId, String currentName,
                   return;
                 }
 
+                final navigator =
+                    Navigator.of(context); // Captura el NavigatorState
                 await FirebaseFirestore.instance
                     .collection('pets')
                     .doc(petId)
@@ -117,7 +119,11 @@ void showEditPetDialog(BuildContext context, String petId, String currentName,
                   'breed': breed,
                   'client_id': selectedClientId,
                 });
-                Navigator.of(context).pop();
+
+                if (navigator.mounted) {
+                  // Verifica si el widget sigue montado
+                  navigator.pop();
+                }
               },
             ),
           ],

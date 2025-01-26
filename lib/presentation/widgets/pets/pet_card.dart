@@ -141,11 +141,17 @@ class PetCard extends StatelessWidget {
               style: TextStyle(color: CupertinoColors.destructiveRed),
             ),
             onPressed: () async {
+              final navigator =
+                  Navigator.of(context); // Captura el NavigatorState
               await FirebaseFirestore.instance
                   .collection('pets')
                   .doc(petId)
                   .delete();
-              Navigator.of(context).pop();
+
+              if (navigator.mounted) {
+                // Verifica si el contexto aún está montado
+                navigator.pop();
+              }
             },
           ),
         ],
