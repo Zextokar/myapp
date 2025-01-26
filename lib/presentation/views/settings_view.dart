@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/config/update_checker.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -16,6 +17,13 @@ class SettingsView extends StatelessWidget {
             Text(
               'Bienvenido a la pantalla de Configuración',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 20),
+            FilledButton.tonal(
+              onPressed: () {
+                UpdateChecker.checkForUpdates(context);
+              },
+              child: const Text('Buscar actualizaciones'),
             ),
             const SizedBox(height: 20),
             FilledButton.tonal(
