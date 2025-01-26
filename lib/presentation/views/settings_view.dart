@@ -9,26 +9,89 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Configuración'),
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {},
+          ),
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
           children: [
-            Text(
-              'Bienvenido a la pantalla de Configuración',
-              style: Theme.of(context).textTheme.headlineMedium,
+            // Bienvenida
+            ListTile(
+              leading: const Icon(Icons.account_circle, color: Colors.blue),
+              title: const Text('Bienvenido'),
+              subtitle: const Text('Ajusta tus preferencias'),
+              onTap: () {},
             ),
-            const SizedBox(height: 20),
-            FilledButton.tonal(
-              onPressed: () {
+            const Divider(),
+
+            // Actualización
+            ListTile(
+              leading: const Icon(Icons.system_update_alt, color: Colors.green),
+              title: const Text('Buscar actualizaciones'),
+              onTap: () {
                 UpdateChecker.checkForUpdates(context);
               },
-              child: const Text('Buscar actualizaciones'),
             ),
-            const SizedBox(height: 20),
-            FilledButton.tonal(
-              onPressed: () {},
-              child: const Text('Editar configuración'),
+            const Divider(),
+
+            // Configuración de perfil
+            ListTile(
+              leading: const Icon(Icons.edit, color: Colors.orange),
+              title: const Text('Editar configuración'),
+              onTap: () {},
+            ),
+            const Divider(),
+
+            // Funcionalidades futuras
+            ListTile(
+              leading: const Icon(Icons.security, color: Colors.red),
+              title: const Text('Seguridad y Privacidad'),
+              subtitle: const Text('Configura tu seguridad'),
+              onTap: () {},
+            ),
+            const Divider(),
+
+            // Función de temas
+            ListTile(
+              leading: const Icon(Icons.palette, color: Colors.purple),
+              title: const Text('Tema de la aplicación'),
+              subtitle: const Text('Cambia el modo de la app'),
+              onTap: () {},
+            ),
+            const Divider(),
+
+            // Notificaciones
+            ListTile(
+              leading: const Icon(Icons.notifications, color: Colors.blue),
+              title: const Text('Notificaciones'),
+              subtitle: const Text('Configura tus notificaciones'),
+              onTap: () {},
+            ),
+            const Divider(),
+
+            // Ayuda
+            ListTile(
+              leading: const Icon(Icons.help_outline, color: Colors.green),
+              title: const Text('Ayuda'),
+              onTap: () {},
+            ),
+            const Divider(),
+
+            // Cerrar sesión
+            ListTile(
+              leading: const Icon(Icons.exit_to_app, color: Colors.red),
+              title: const Text('Cerrar sesión'),
+              onTap: () {},
             ),
           ],
         ),
