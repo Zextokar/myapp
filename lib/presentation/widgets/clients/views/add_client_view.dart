@@ -145,14 +145,6 @@ class _AddClientViewState extends State<AddClientView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Datos del Cliente',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 20),
                 _buildTextField(
                     controller: _nameController,
                     placeholder: 'Nombre Completo'),

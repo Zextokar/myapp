@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -87,8 +88,10 @@ class ClientAppointmentsChartView extends StatelessWidget {
       };
     }).toList();
 
-    print(
-        'Datos para el gráfico: $data'); // Debug: Verificamos los datos que pasamos al gráfico
+    if (kDebugMode) {
+      print(
+        'Datos para el gráfico: $data');
+    } // Debug: Verificamos los datos que pasamos al gráfico
 
     return Scaffold(
       appBar: AppBar(
