@@ -331,84 +331,112 @@ class _ClientDetailViewState extends State<ClientDetailView> {
               Expanded(child: Container()),
               // Botones de Eliminar y Actualizar al lado
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment
+                    .spaceEvenly, // Espacio uniforme entre los botones
                 children: [
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      _showUpdateClientDialog(
-                          context,
-                          widget.clientId,
-                          widget.clientName,
-                          widget.clientAddress,
-                          widget.clientPhone);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      decoration: BoxDecoration(
-                        color: CupertinoColors.systemGrey5, // Fondo sutil
-                        borderRadius:
-                            BorderRadius.circular(8), // Bordes redondeados
-                        boxShadow: [
-                          BoxShadow(
-                            color: CupertinoColors.systemGrey.withOpacity(0.3),
-                            blurRadius: 4,
-                            spreadRadius: 1,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Text(
-                        'Actualizar Cliente',
-                        style: CupertinoTheme.of(context)
-                            .textTheme
-                            .textStyle
-                            .copyWith(
-                              color: CupertinoColors.activeBlue,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        _showAddAppointmentDialog(context, widget.clientId);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: CupertinoColors.systemGrey5, // Fondo sutil
+                          borderRadius:
+                              BorderRadius.circular(8), // Bordes redondeados
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  CupertinoColors.systemGrey.withOpacity(0.3),
+                              blurRadius: 4,
+                              spreadRadius: 1,
+                              offset: const Offset(0, 2),
                             ),
+                          ],
+                        ),
+                        child: const Icon(
+                          CupertinoIcons
+                              .calendar_badge_plus, // Icono para "Agregar Cita"
+                          size: 28,
+                          color: CupertinoColors.activeBlue,
+                        ),
                       ),
                     ),
                   ),
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      _showDeleteConfirmationDialog(context, widget.clientId);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      decoration: BoxDecoration(
-                        color: CupertinoColors.systemRed
-                            .withOpacity(0.1), // Fondo sutil para eliminar
-                        borderRadius:
-                            BorderRadius.circular(8), // Bordes redondeados
-                        boxShadow: [
-                          BoxShadow(
-                            color: CupertinoColors.systemGrey.withOpacity(0.3),
-                            blurRadius: 4,
-                            spreadRadius: 1,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Text(
-                        'Eliminar Cliente',
-                        style: CupertinoTheme.of(context)
-                            .textTheme
-                            .textStyle
-                            .copyWith(
-                              color: CupertinoColors.destructiveRed,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                  const SizedBox(width: 8), // Separador entre botones
+                  Expanded(
+                    child: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        _showUpdateClientDialog(
+                            context,
+                            widget.clientId,
+                            widget.clientName,
+                            widget.clientAddress,
+                            widget.clientPhone);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: CupertinoColors.systemGrey5, // Fondo sutil
+                          borderRadius:
+                              BorderRadius.circular(8), // Bordes redondeados
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  CupertinoColors.systemGrey.withOpacity(0.3),
+                              blurRadius: 4,
+                              spreadRadius: 1,
+                              offset: const Offset(0, 2),
                             ),
+                          ],
+                        ),
+                        child: const Icon(
+                          CupertinoIcons
+                              .pencil_circle, // Icono para "Actualizar Cliente"
+                          size: 28,
+                          color: CupertinoColors.activeBlue,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8), // Separador entre botones
+                  Expanded(
+                    child: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        _showDeleteConfirmationDialog(context, widget.clientId);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: CupertinoColors.systemRed
+                              .withOpacity(0.1), // Fondo sutil
+                          borderRadius:
+                              BorderRadius.circular(8), // Bordes redondeados
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  CupertinoColors.systemGrey.withOpacity(0.3),
+                              blurRadius: 4,
+                              spreadRadius: 1,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          CupertinoIcons
+                              .trash_circle, // Icono para "Eliminar Cliente"
+                          size: 28,
+                          color: CupertinoColors.destructiveRed,
+                        ),
                       ),
                     ),
                   ),
                 ],
-              ),
+              )
             ],
           ),
         ),
@@ -546,6 +574,92 @@ class _ClientDetailViewState extends State<ClientDetailView> {
           ),
         ],
       ),
+    );
+  }
+
+  void _addAppointmentToFirestore(
+      BuildContext context, String clientId, DateTime date) async {
+    try {
+      await FirebaseFirestore.instance.collection('appointments').add({
+        'client_id': clientId,
+        'date': date,
+        'status': 'booked',
+      });
+      _appointments = _loadAppointments();
+      setState(() {});
+      // Muestra un mensaje de éxito
+      showCupertinoDialog(
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+          title: const Text('Éxito'),
+          content: const Text('La cita ha sido agendada correctamente.'),
+          actions: [
+            CupertinoDialogAction(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Cierra el diálogo
+                Navigator.of(context).pop(); // Cierra el selector
+              },
+            ),
+          ],
+        ),
+      );
+    } catch (error) {
+      // Muestra un mensaje de error
+      showCupertinoDialog(
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+          title: const Text('Error'),
+          content: Text('Ocurrió un error: $error'),
+          actions: [
+            CupertinoDialogAction(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void _showAddAppointmentDialog(BuildContext context, String clientId) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        final DateTime now = DateTime.now();
+        DateTime selectedDate = now;
+
+        return Container(
+          height: 300,
+          padding: const EdgeInsets.only(top: 16),
+          color: CupertinoColors.systemBackground,
+          child: Column(
+            children: [
+              Expanded(
+                child: CupertinoDatePicker(
+                  mode: CupertinoDatePickerMode.dateAndTime,
+                  initialDateTime: now,
+                  minimumDate: now,
+                  onDateTimeChanged: (DateTime newDateTime) {
+                    selectedDate = newDateTime;
+                  },
+                ),
+              ),
+              CupertinoButton.filled(
+                onPressed: () {
+                  _addAppointmentToFirestore(context, clientId, selectedDate);
+                  Navigator.of(context).pop(); // Cierra el modal
+                },
+                child: const Text('Agendar Cita'),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

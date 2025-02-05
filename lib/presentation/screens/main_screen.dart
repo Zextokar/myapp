@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/presentation/views/home_view.dart';
 import 'package:myapp/presentation/views/calendar_view.dart';
 import 'package:myapp/presentation/views/clients_view.dart';
-import 'package:myapp/presentation/views/pets_view.dart';
+import 'package:myapp/presentation/views/stadistics_view.dart';
 import 'package:myapp/presentation/views/settings_view.dart';
 
 class MainScreen extends StatefulWidget {
@@ -23,8 +23,8 @@ class _MainScreenState extends State<MainScreen> {
     final screens = [
       const CalendarView(),
       const ClientsView(),
-      const HomeView(), // Home es el tercer índice (2)
-      const PetsView(),
+      const HomeView(),
+      const FrequentClientsReport(),
       const SettingsView(),
     ];
 
@@ -67,10 +67,10 @@ class _MainScreenState extends State<MainScreen> {
               label: 'Inicio',
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.paw),
-              activeIcon:
-                  Icon(CupertinoIcons.paw, color: CupertinoColors.activeBlue),
-              label: 'Mascotas',
+              icon: Icon(CupertinoIcons.graph_square),
+              activeIcon: Icon(CupertinoIcons.graph_square,
+                  color: CupertinoColors.activeBlue),
+              label: 'Reportes',
             ),
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.settings),
@@ -91,9 +91,9 @@ class _MainScreenState extends State<MainScreen> {
       case 1:
         return 'Clientes';
       case 2:
-        return 'Inicio'; // Título para la HomeView
+        return 'Inicio';
       case 3:
-        return 'Mascotas';
+        return 'Reportes';
       case 4:
         return 'Configuración';
       default:
